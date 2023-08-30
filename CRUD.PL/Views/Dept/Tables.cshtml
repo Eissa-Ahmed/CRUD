@@ -1,0 +1,56 @@
+﻿@model IEnumerable<DepartmentVM>
+@{
+    ViewBag.Title = "Tables";
+}
+<style>
+    tr {
+        height: 50px !important;
+    }
+
+        tr th, .xx {
+            text-align: center !important;
+            background-color: orangered !important;
+            color: white !important;
+        }
+
+    .xx {
+        border: none;
+        border-radius: 5px;
+        padding: 4px 12px;
+        font-size: 14px;
+        font-weight: 600;
+        width: 70px;
+        height: 30px;
+    }
+
+    .e{
+        background-color: blueviolet !important;
+    }
+
+</style>
+
+<table class="table table-hover table-striped text-center table-borderd">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.Name</td>
+                <td>@item.Address</td>
+                <td>
+                    <a asp-controller="Dept" asp-action="Edit" asp-route-id="@item.ID" class="xx e">Edit</a>
+                    <a asp-controller="Dept" asp-action="Delete" asp-route-id="@item.ID" class="xx">Delete</a>
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
