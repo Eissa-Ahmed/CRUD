@@ -1,7 +1,21 @@
+using CRUD.BL.Interfaces;
+using CRUD.BL.Repository;
+using CRUD.DAL.Database;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Scoped 
+builder.Services.AddScoped<IDepartment, DepartmentRepo>();
+
+var ConnectionString = builder.Configuration.GetConnectionString("ApplicationConnection");
+
+builder.Services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(ConnectionString));
+
+
 
 var app = builder.Build();
 

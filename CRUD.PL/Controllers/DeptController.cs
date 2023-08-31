@@ -1,12 +1,16 @@
-﻿using CRUD.BL.Model;
-using CRUD.BL.Repository;
+﻿using CRUD.BL.Interfaces;
+using CRUD.BL.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD.PL.Controllers
 {
     public class DeptController : Controller
     {
-        DepartmentRepo DepartmentRepo = new DepartmentRepo();
+        private readonly IDepartment DepartmentRepo ;
+        public DeptController(IDepartment _DepartmentRepo)
+        {
+            this.DepartmentRepo = _DepartmentRepo ;
+        }
         public async Task<IActionResult> Tables()
         {
             var data = await DepartmentRepo.GetAll();

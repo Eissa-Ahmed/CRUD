@@ -9,7 +9,11 @@ namespace CRUD.BL.Repository
 {
     public class DepartmentRepo : IDepartment
     {
-        ApplicationDbContext _dbContext = new ApplicationDbContext();
+        private readonly ApplicationDbContext _dbContext;
+        public DepartmentRepo(ApplicationDbContext dbContext)
+        {
+            this._dbContext = dbContext;
+        }
         public async Task Create(DepartmentVM departmentVM)
         {
             Department department = new Department();
