@@ -1,5 +1,4 @@
 ﻿using CRUD.BL.Model;
-using CRUD.BL.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD.PL.Controllers
