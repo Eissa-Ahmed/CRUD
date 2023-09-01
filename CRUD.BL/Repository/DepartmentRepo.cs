@@ -1,4 +1,5 @@
-﻿using CRUD.BL.Interfaces;
+﻿using AutoMapper;
+using CRUD.BL.Interfaces;
 using CRUD.BL.Model;
 using CRUD.DAL.Database;
 using CRUD.DAL.Entity;
@@ -10,15 +11,15 @@ namespace CRUD.BL.Repository
     public class DepartmentRepo : IDepartment
     {
         private readonly ApplicationDbContext _dbContext;
-        public DepartmentRepo(ApplicationDbContext dbContext)
+        private readonly IMapper _mapper;
+        public DepartmentRepo(ApplicationDbContext dbContext , IMapper mapper)
         {
             this._dbContext = dbContext;
+            this._mapper = mapper;
         }
         public async Task Create(DepartmentVM departmentVM)
         {
-            Department department = new Department();
-            department.Name = departmentVM.Name;
-            department.Address = departmentVM.Address;
+            var department = _mapper.Map<Department>(departmentVM);
             _dbContext.Department.Add(department);
             await _dbContext.SaveChangesAsync();
         }
@@ -44,23 +45,15 @@ namespace CRUD.BL.Repository
 
         public async Task<List<DepartmentVM>> GetAll()
         {
-            var data = await _dbContext.Department.Select(i => new DepartmentVM()
-            {
-                ID = i.ID,
-                Name = i.Name,
-                Address = i.Address,
-            }).ToListAsync();
+            var data1 = await _dbContext.Department.Select(i => i).ToListAsync();
+            var data = _mapper.Map<List<DepartmentVM>>(data1);
             return data;
         }
 
         public async Task<DepartmentVM> GetById(int id)
         {
-            var data = await _dbContext.Department.Where(i => i.ID == id).Select(i => new DepartmentVM()
-            {
-                ID = i.ID,
-                Name = i.Name,
-                Address = i.Address,
-            }).FirstOrDefaultAsync();
+            var data1 = await _dbContext.Department.Where(i => i.ID == id).Select(i => i).FirstOrDefaultAsync();
+            var data = _mapper.Map<DepartmentVM>(data1);
             return data;
         }
     }

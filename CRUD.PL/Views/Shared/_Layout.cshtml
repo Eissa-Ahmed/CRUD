@@ -13,6 +13,7 @@
 
     <!-- Bootstrap Core Css -->
     <link href="~/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="~/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 
     <!-- Waves Effect Css -->
     <link href="~/plugins/node-waves/waves.css" rel="stylesheet" />
@@ -320,7 +321,21 @@
                            
                         </ul>
                     </li>
-                   
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">swap_calls</i>
+                            <span>Employee</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a asp-controller="Employee" asp-action="Index">Tables</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Employee" asp-action="Create">Add Employee</a>
+                            </li>
+
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- #Menu -->

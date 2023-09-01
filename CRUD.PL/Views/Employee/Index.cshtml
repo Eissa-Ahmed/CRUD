@@ -1,0 +1,76 @@
+﻿@model IEnumerable<EmployeeVM>
+@{
+    ViewBag.Title = "Employee";
+}
+<style>
+    tr {
+        height: 50px !important;
+    }
+
+        tr th, .xx {
+            text-align: center !important;
+            background-color: orangered !important;
+            color: white !important;
+        }
+
+    .xx {
+        border: none;
+        border-radius: 5px;
+        padding: 4px 12px;
+        font-size: 14px;
+        font-weight: 600;
+        width: 70px;
+        height: 30px;
+    }
+
+    .e {
+        background-color: blueviolet !important;
+    }
+
+</style>
+
+<br />
+<form asp-controller="Employee" asp-action="Index">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10">
+                <input type="text" class="form-control" value="@TempData["Search"]" name="SearchValue" />
+            </div>
+            <div class="col-lg-2">
+                <input type="submit" value="search" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+</form>
+<br />
+
+<table class="table table-hover table-striped text-center table-borderd">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Salary</th>
+            <th>Hire Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>@item.Address</td>
+                <td>@item.Salary</td>
+                <td>@item.HirDate</td>
+                <td>
+                    <a asp-controller="Employee" asp-action="Edit" asp-route-id="@item.Id" class="xx e">Edit</a>
+                    <a asp-controller="Employee" asp-action="Delete" asp-route-id="@item.Id" class="xx">Delete</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

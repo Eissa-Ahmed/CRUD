@@ -1,4 +1,5 @@
-﻿using CRUD.BL.Interfaces;
+﻿using AutoMapper;
+using CRUD.BL.Interfaces;
 using CRUD.BL.Model;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,17 +8,29 @@ namespace CRUD.PL.Controllers
     public class DeptController : Controller
     {
         private readonly IDepartment DepartmentRepo ;
-        public DeptController(IDepartment _DepartmentRepo)
+        private readonly IMapper IMapper;
+        public DeptController(IDepartment _DepartmentRepo , IMapper _IMapper)
         {
             this.DepartmentRepo = _DepartmentRepo ;
+            this.IMapper = _IMapper;
         }
+        
         public async Task<IActionResult> Tables()
         {
+            HttpContext.Session.SetString("name" , "Leel Ahmed");
+            TempData["Name"] = "Essa Ahmed";
+            TempData.Keep("Name");
             var data = await DepartmentRepo.GetAll();
             return View(data);
         }
         public async Task<IActionResult> Forms()
         {
+            var name = "";
+            if (TempData.ContainsKey("Name"))
+            {
+                name = (string)TempData["Name"];
+                //TempData.Keep("Name");
+            }
             return View();
         }
         [HttpPost]

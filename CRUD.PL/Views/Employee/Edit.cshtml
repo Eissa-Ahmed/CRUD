@@ -1,0 +1,36 @@
+﻿@model EmployeeVM
+@{
+    ViewBag.Title = "Edit Employee";
+}
+
+<style>
+    form > div > input {
+        padding: 5px !important
+    }
+
+    button {
+        width: 75% !important;
+        height: 45px;
+    }
+</style>
+
+<div class="container">
+    <h2>@TempData["Error"]</h2>
+    <h2>Add Employee</h2>
+    <form asp-controller="Employee" asp-action="Edit" method="post" class="form-group">
+        @{
+            await Html.RenderPartialAsync("~/Views/Shared/Partial View/Employee/FormCreate.cshtml");
+        }
+
+        <center>
+            <button type="submit" value="Save" class="btn btn-primary">Submit</button><br /><br />
+            <button type="reset" class="btn btn-danger">Reset</button>
+
+        </center>
+    </form>
+</div>
+
+@section JqueryValidation {
+    <script src="~/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
