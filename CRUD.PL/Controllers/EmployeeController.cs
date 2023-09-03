@@ -12,13 +12,17 @@ namespace CRUD.PL.Controllers
         #region Properities
         private readonly IEmployee employee;
         private readonly IDepartment department;
+        private readonly ICity ICity;
+        private readonly IDistrict IDistrict;
         #endregion
 
         #region Ctor
-        public EmployeeController(IEmployee _employee, IDepartment _department)
+        public EmployeeController(IEmployee _employee, IDepartment _department , ICity _ICity , IDistrict _IDistrict)
         {
             this.employee = _employee;
             this.department = _department;
+            this.ICity = _ICity;
+            this.IDistrict = _IDistrict;
         }
         #endregion
 
@@ -98,7 +102,20 @@ namespace CRUD.PL.Controllers
 
 
         #region Ajax Call
-
+        //Get Data City Based Country Id
+        [HttpPost]
+        public async Task<IActionResult> GetCityByCountryId(int id)
+        {
+            var data = await ICity.GetAsync(i => i.CountryId == id);
+            return Json(data);
+        }
+        //Get Data District Based City Id
+        [HttpPost]
+        public async Task<IActionResult> GetDistrictByCityId(int id)
+        {
+            var data = await IDistrict.GetAsync(i => i.CityId == id);
+            return Json(data);
+        }
         #endregion
     }
 }

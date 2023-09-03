@@ -50,7 +50,8 @@
                                     <th>Email</th>
                                     <th>Address</th>
                                     <th>Salary</th>
-                                    <th>Hire Date</th>
+                                    <th>District</th>
+                                    <th>HirDate</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -62,7 +63,8 @@
                                         <td>@item.Email</td>
                                         <td>@item.Address</td>
                                         <td>@item.Salary</td>
-                                        <td>@item.HirDate</td>
+                                        <td>@item.District.Name</td>
+                                        <td>@item.HirDate.DayOfWeek</td>
                                         <td>
                                             <a asp-controller="Employee" asp-action="Edit" asp-route-id="@item.Id" class="xx e">Edit</a>
                                             <a asp-controller="Employee" asp-action="Delete" asp-route-id="@item.Id" class="xx">Delete</a>

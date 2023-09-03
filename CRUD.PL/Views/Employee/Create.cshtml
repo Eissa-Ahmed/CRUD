@@ -1,4 +1,5 @@
 ﻿@model EmployeeVM
+@inject ICountry ICountry
 @{
     ViewBag.Title = "Add Employee";
 }
@@ -19,10 +20,23 @@
     <h2>@TempData["Error"]</h2>
     <h2>Add Employee</h2>
     <form asp-controller="Employee" asp-action="Create" method="post" class="form-group">
-        
+
         @{
             await Html.RenderPartialAsync("~/Views/Shared/Partial View/Employee/FormCreate.cshtml");
         }
+        <select id="CountryList">
+            <option>Choose Country</option>
+            @foreach (var item in await ICountry.GetAsync())
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+        <select id="CityList">
+            <option>Choose City</option>
+        </select>
+        <select asp-for="DistrictId">
+            <option>Choose District</option>
+        </select>
 
         <center>
             <button type="submit" value="Save" class="btn btn-primary">Submit</button><br /><br />
@@ -32,7 +46,31 @@
     </form>
 </div>
 
+
 @section JqueryValidation {
     <script src="~/jquery-validate/jquery.validate.min.js"></script>
     <script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+
+        $(function () {
+            $("#CountryList").change(function () {
+                $("#CityList").empty();
+                $("#CityList").append("<option> Choose City<option/>");
+                var CountryId = $('#CountryList option:selected').val()
+                $.ajax({
+                    type: "POST",
+                    url: "/Employee/GetDistrictByCityId",
+                    data: { id: CountryId },
+                    success: function (res) {
+                        $.each(res, function (i,e) {
+                            $("#CityList").append("<option value='" + e.Id + "'>" + e.Name + "<option/>");
+                        });
+                    },
+                });
+            })
+        });
+
+
+    </script>
 }

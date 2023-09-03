@@ -37,6 +37,9 @@ namespace CRUD.BL.Model
         [Required(ErrorMessage = "Department Is Required")]
         public int DepartmentId { get; set; }
         public Department? Department { get; set; }
+        public int DistrictId { get; set; }
+
+        public District District { get; set; }
 
     }
 }
