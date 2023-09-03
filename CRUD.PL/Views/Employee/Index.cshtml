@@ -2,32 +2,10 @@
 @{
     ViewBag.Title = "Employee";
 }
-<style>
-    tr {
-        height: 50px !important;
-    }
+@section DataTableResourceCss{
+    <link href="~/datatable/datatables.bootstrap.css" rel="stylesheet" />
+}
 
-        tr th, .xx {
-            text-align: center !important;
-            background-color: orangered !important;
-            color: white !important;
-        }
-
-    .xx {
-        border: none;
-        border-radius: 5px;
-        padding: 4px 12px;
-        font-size: 14px;
-        font-weight: 600;
-        width: 70px;
-        height: 30px;
-    }
-
-    .e {
-        background-color: blueviolet !important;
-    }
-
-</style>
 
 <br />
 <form asp-controller="Employee" asp-action="Index">
@@ -44,33 +22,111 @@
 </form>
 <br />
 
-<table class="table table-hover table-striped text-center table-borderd">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>Salary</th>
-            <th>Hire Date</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td>@item.Email</td>
-                <td>@item.Address</td>
-                <td>@item.Salary</td>
-                <td>@item.HirDate</td>
-                <td>
-                    <a asp-controller="Employee" asp-action="Edit" asp-route-id="@item.Id" class="xx e">Edit</a>
-                    <a asp-controller="Employee" asp-action="Delete" asp-route-id="@item.Id" class="xx">Delete</a>
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Welcome To Employee</h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another action</a></li>
+                                <li><a href="javascript:void(0);">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Address</th>
+                                    <th>Salary</th>
+                                    <th>Hire Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.Address</td>
+                                        <td>@item.Salary</td>
+                                        <td>@item.HirDate</td>
+                                        <td>
+                                            <a asp-controller="Employee" asp-action="Edit" asp-route-id="@item.Id" class="xx e">Edit</a>
+                                            <a asp-controller="Employee" asp-action="Delete" asp-route-id="@item.Id" class="xx">Delete</a>
 
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section DataTableResourceJs{
+    <script src="~/datatable/jquery.datatables.js"></script>
+    <script src="~/datatable/datatables.bootstrap.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+
+    <script>
+        $(function () {
+            $('.js-basic-example').DataTable({
+                resposive: true,
+                paging: true,
+                pageLength: 1,
+                bSort: true,
+                bFilter: true,
+                lengthMenu: [[1, 2, 3, 4, 5, -1], [1, 2, 3, 4, 5, "All"]]
+            });
+            var table = $('.js-basic-example').DataTable();
+
+            new $.fn.dataTable.Buttons(table, {
+                buttons: [
+                    'copy', 'excel', 'pdf', 'csv', 'print'
+                ]
+            });
+
+            table.buttons().container()
+                .appendTo($('.col-sm-6:eq(0)', table.table().container()));
+        })
+
+
+    </script>
+}
 

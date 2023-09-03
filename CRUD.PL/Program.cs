@@ -13,6 +13,9 @@ builder.Services.AddControllersWithViews();
 //AddScoped 
 builder.Services.AddScoped<IDepartment, DepartmentRepo>();
 builder.Services.AddScoped<IEmployee, EmployeeRepo>();
+builder.Services.AddScoped<ICountry, CountryRepo>();
+builder.Services.AddScoped<ICity, CityRepo>();
+builder.Services.AddScoped<IDistrict, DistrictRepo>();
 
 #endregion
 

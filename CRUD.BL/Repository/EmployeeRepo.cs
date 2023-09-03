@@ -47,7 +47,7 @@ namespace CRUD.BL.Repository
         {
             if (filter != null)
             {
-                var items = await dbContext.Employee.Where(filter).ToListAsync();
+                var items = await dbContext.Employee.Where(filter).Include("Department").Include("District").ToListAsync();
                 var data = mapper.Map<List<EmployeeVM>>(items);
                 return data;
             }

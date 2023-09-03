@@ -20,6 +20,9 @@ namespace CRUD.DAL.Entity
         [ForeignKey("Department")]
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
+        public int DistrictId { get; set; }
+
+        public District District { get; set; }
 
       
     }
